@@ -1,10 +1,8 @@
 --!nonstrict
 
 -- Services
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Modules
-local MovementStates = require(ReplicatedStorage.Shared.Types.MovementStates)
 
 -- Variables
 
