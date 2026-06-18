@@ -1,9 +1,9 @@
 --!nonstrict
 
 -- Services
-
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 -- Modules
-
+local Signal = require(ReplicatedStorage.Shared.Packages.Signal)
 -- Variables
 
 local StateController = {}
@@ -19,6 +19,7 @@ function StateController.new(stateMachine)
 	self.PreviousState = nil
 	self.BufferedAction = nil
 
+	self.stateChanged = Signal.new()
 	return self
 end
 
@@ -46,6 +47,7 @@ function StateController:SetState(stateName)
 	self.CurrentState = newState
 
 	self.CurrentState:Enter()
+	self.stateChange:Fire(self.CurrentState, self.PreviousState)
 end
 ----------------------------------------
 
