@@ -19,6 +19,9 @@ function StateMachine.new()
 end
 
 function StateMachine:RegisterState(stateName, state)
+	if not state then
+		error(`[StateMachine] state is nil`)
+	end
 	if self.States[stateName] then
 		error(`[StateMachine] {stateName} already registered.`)
 	end
