@@ -25,7 +25,7 @@ function BaseState:Enter()
 end
 
 function BaseState:Exit()
-	error(`[BaseState (StateMachine)] {self.Name}:Enter() not implemented`)
+	error(`[BaseState (StateMachine)] {self.Name}:Exit() not implemented`)
 end
 
 function BaseState:Update()

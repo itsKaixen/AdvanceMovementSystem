@@ -47,7 +47,7 @@ function StateController:SetState(stateName)
 	self.CurrentState = newState
 
 	self.CurrentState:Enter()
-	self.stateChange:Fire(self.CurrentState, self.PreviousState)
+	self.stateChanged:Fire(self.CurrentState, self.PreviousState)
 end
 ----------------------------------------
 

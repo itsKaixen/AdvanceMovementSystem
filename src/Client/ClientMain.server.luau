@@ -13,14 +13,18 @@ local WalkState = require(ReplicatedStorage.Client.StateMachine.States.WalkState
 local stateMachine = StateMachine.new()
 local stateController = StateController.new(stateMachine)
 
-local idileState = IdleState.new(stateController)
+local idleState = IdleState.new(stateController)
 local walkState = WalkState.new(stateController)
 
 -- Registering
-stateMachine:RegisterState(MovementStates.Idle, idileState)
+stateMachine:RegisterState(MovementStates.Idle, idleState)
 stateMachine:RegisterState(MovementStates.Walk, walkState)
 
 -- Requesting State
+stateController.stateChanged:Connect(function(newState, oldState)
+	print("state changed")
+end)
+
 stateController:RequestState(MovementStates.Idle)
 
 task.wait(5)

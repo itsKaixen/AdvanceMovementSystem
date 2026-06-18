@@ -15,6 +15,8 @@ setmetatable(BaseState, LandingState)
 function LandingState.new(stateController)
 	local self = BaseState.new("Landing", stateController)
 	setmetatable(self, LandingState)
+
+	return self
 end
 
 function LandingState:Enter()
