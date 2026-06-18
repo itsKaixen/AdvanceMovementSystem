@@ -1,19 +1,19 @@
 {
-	"name": "Advance Movement System",
-	"tree": {
-		"$className": "DataModel",
-		"ReplicatedStorage": {
-			"Client": {
-				"$path": "src/Client"
-			},
-			"Shared": {
-				"$path": "src/Shared"
-			}
-		},
-		"ServerScriptService": {
-			"Server": {
-				"$path": "src/Server"
-			}
-		}
-	}
+  "name": "Advance Movement System",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Client": {
+        "$path": "src/Client"
+      },
+      "Shared": {
+        "$path": "src/Shared"
+      }
+    },
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/Server"
+      }
+    }
+  }
 }

@@ -15,6 +15,8 @@ setmetatable(BaseState, IdleState)
 function IdleState.new(stateController)
 	local self = BaseState.new("Idle", stateController)
 	setmetatable(self, IdleState)
+
+	return self
 end
 
 function IdleState:Enter()

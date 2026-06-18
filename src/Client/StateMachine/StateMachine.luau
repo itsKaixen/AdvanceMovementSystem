@@ -22,7 +22,7 @@ end
 
 function StateMachine:RegisterState(stateName, state)
 	if self.States[stateName] then
-		error(`[StateMachine] ${stateName} already registered.`)
+		error(`[StateMachine] {stateName} already registered.`)
 	end
 
 	self.States[stateName] = state
@@ -32,7 +32,7 @@ function StateMachine:GetState(stateName)
 	local state = self.States[stateName]
 
 	if not state then
-		error(`[StateMachine] State ${stateName} is not registered.`)
+		error(`[StateMachine] State {stateName} is not registered.`)
 	end
 	return state
 end
