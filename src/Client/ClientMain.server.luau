@@ -1,11 +1,8 @@
 -- Variables
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Modules
+local CharacterController = require(ReplicatedStorage.Client.Controllers.CharacterController)
 local InputController = require(ReplicatedStorage.Client.Controllers.InputController)
 local MovementStates = require(ReplicatedStorage.Shared.Types.MovementStates)
 
@@ -18,6 +15,10 @@ local WalkState = require(ReplicatedStorage.Client.StateMachine.States.WalkState
 
 local stateMachine = StateMachine.new()
 local stateController = StateController.new(stateMachine)
+local characterController = CharacterController.new()
+characterController:Start()
+
+local humanoid = characterController:GetHumanoid()
 
 local idleState = IdleState.new(stateController)
 local walkState = WalkState.new(stateController)
