@@ -1,8 +1,10 @@
 --!nonstrict
 
 -- Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Modules
+local Signal = require(ReplicatedStorage.Shared.Packages.Signal)
 
 -- Variables
 local Players = game:GetService("Players")
@@ -21,6 +23,8 @@ function CharacterController.new()
 	self.Rootpart = nil
 	self.Animator = nil
 
+	self.CharacterLoaded = Signal.new()
+
 	return self
 end
 
@@ -30,6 +34,8 @@ function CharacterController:LoadCharacter(Character)
 	self.Rootpart = Character:WaitForChild("HumanoidRootPart")
 
 	self.Animator = self.Humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator", self.Humanoid)
+
+	self.CharacterLoaded:Fire(self.Character, self.Humanoid, self.Animator, self.Rootpart)
 end
 
 function CharacterController:GetCharacter()
@@ -50,10 +56,11 @@ end
 
 function CharacterController:Start()
 	local character = self.Player.Character or self.Player.CharacterAdded:Wait()
-	CharacterController:LoadCharacter(character)
 
-	self.Player.CharacterAdded:Connect(function(newCharacter)
-		self:LoadCharacter(newCharacter)
+	self:LoadCharacter(character)
+
+	self.Player.CharacterAdded:Connect(function(character)
+		self:LoadCharacter(character)
 	end)
 end
 ----------------------------------------

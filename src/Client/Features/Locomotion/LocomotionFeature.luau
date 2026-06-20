@@ -12,19 +12,27 @@ local LocomotionFeature = {}
 LocomotionFeature.__index = LocomotionFeature
 
 ---------------------------------------- Functions
-function LocomotionFeature.new(stateController, humanoid)
+function LocomotionFeature.new(stateController)
 	local self = setmetatable({}, LocomotionFeature)
 
 	self.stateController = stateController
-	self.humanoid = humanoid
+	self.humanoid = nil
 
 	return self
 end
 
-function LocomotionFeature:Update()
-	local moveDirection = self.humanoid.MoveDirection
+function LocomotionFeature:SetHumanoid(humanoid)
+	self.Humanoid = humanoid
+end
 
+function LocomotionFeature:Update()
 	local currentState = self.stateController:GetCurrentState()
+
+	if not self.Humanoid then
+		return
+	end
+
+	local moveDirection = self.Humanoid.MoveDirection
 
 	if moveDirection.Magnitude > 0 then
 		if currentState.Name ~= MovementStates.Walk then
