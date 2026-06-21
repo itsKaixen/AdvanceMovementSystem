@@ -6,12 +6,16 @@ local MovementStates = require(ReplicatedStorage.Shared.Types.MovementStates)
 
 return {
 	[MovementStates.Idle] = {
-		AnimationId = "rbxassetid://YOUR_IDLE_ID",
+		AnimationId = "rbxassetid://130189740964780",
 		Looped = true,
 	},
 
 	[MovementStates.Walk] = {
 		AnimationId = "rbxassetid://132792657547651",
+		Looped = true,
+	},
+	[MovementStates.Run] = {
+		AnimationId = "rbxassetid://138954048505570",
 		Looped = true,
 	},
 }
