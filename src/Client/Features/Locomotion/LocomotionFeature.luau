@@ -4,6 +4,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- Modules
+local InputState = require(ReplicatedStorage.Shared.Systems.InputState)
 local MovementStates = require(ReplicatedStorage.Shared.Types.MovementStates)
 
 -- Variables
@@ -34,13 +35,58 @@ function LocomotionFeature:Update()
 
 	local moveDirection = self.Humanoid.MoveDirection
 
-	if moveDirection.Magnitude > 0 then
+	if moveDirection.Magnitude <= 0 then
+		if currentState.Name == MovementStates.Idle then
+			return
+		end
+		self.stateController:RequestState(MovementStates.Idle)
+		return
+	end
+
+	if InputState.Sprint then
+		if currentState.Name ~= MovementStates.Run then
+			self.stateController:RequestState(MovementStates.Run)
+		end
+	else
 		if currentState.Name ~= MovementStates.Walk then
 			self.stateController:RequestState(MovementStates.Walk)
 		end
-	elseif currentState.Name ~= MovementStates.Idle then
-		self.stateController:RequestState(MovementStates.Idle)
 	end
+
+	print("Move:", moveDirection.Magnitude, "Sprint:", InputState.Sprint, "State:", currentState.Name)
+
+	-- if moveDirection.Magnitude <= 0 then
+	-- 	if currentState == MovementStates.Idle then
+	-- 		return
+	-- 	end
+	-- 	self.stateController:RequestState(MovementStates.Idle)
+	-- 	return
+	-- end
+	-- -- if moveDirection.Magnitude > 0 then
+	-- if InputState.Sprint then
+	-- 	if currentState ~= MovementStates.Run then
+	-- 		self.stateController:RequestState(MovementStates.Run)
+	-- 	end
+	-- else
+	-- 	if currentState ~= MovementStates.Walk then
+	-- 		self.stateController:RequestState(MovementStates.Walk)
+	-- 	end
+	-- end
+	-- end
+
+	-- if moveDirection.Magnitude > 0 then
+	-- 	if InputState.Sprint then
+	-- 		if currentState ~= MovementStates.Run then
+	-- 			self.stateController:RequestState(MovementStates.Run)
+	-- 		end
+	-- 	else
+	-- 		if currentState ~= MovementStates.Walk then
+	-- 			self.stateController:RequestState(MovementStates.Walk)
+	-- 		end
+	-- 	end
+	-- elseif currentState.Name ~= MovementStates.Idle then
+	-- 	self.stateController:RequestState(MovementStates.Idle)
+	-- end
 end
 ----------------------------------------
 
