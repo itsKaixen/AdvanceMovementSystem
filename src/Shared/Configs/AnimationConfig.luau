@@ -18,4 +18,13 @@ return {
 		AnimationId = "rbxassetid://138954048505570",
 		Looped = true,
 	},
+	CrouchIdle = {
+		AnimationId = "rbxassetid://CROUCH_IDLE_ID",
+		Looped = true,
+	},
+
+	CrouchWalk = {
+		AnimationId = "rbxassetid://CROUCH_WALK_ID",
+		Looped = true,
+	},
 }
