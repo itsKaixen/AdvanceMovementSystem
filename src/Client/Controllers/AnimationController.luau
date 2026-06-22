@@ -2,6 +2,7 @@
 
 -- Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 
 -- Modules
 local AnimationConfig = require(ReplicatedStorage.Shared.Configs.AnimationConfig)
@@ -41,6 +42,18 @@ end
 function AnimationController:_setupStateConnections()
 	self.StateController.stateChanged:Connect(function(newState, oldState)
 		self:OnStateChanged(newState, oldState)
+	end)
+
+	RunService.RenderStepped:Connect(function()
+		local currentState = self.StateController:GetCurrentState()
+
+		if not currentState then
+			return
+		end
+
+		if currentState.Name == "Crouch" then
+			self:UpdateCrouchAnimation()
+		end
 	end)
 end
 
@@ -138,7 +151,32 @@ function AnimationController:OnStateChanged(newState, oldState)
 		return
 	end
 
+	if newState.Name == "Crouch" then
+		self:UpdateCrouchAnimation()
+		return
+	end
+
 	self:PlayAnimation(newState.Name)
+end
+
+function AnimationController:UpdateCrouchAnimation()
+	if not self.CharacterController then
+		return
+	end
+
+	local humanoid = self.CharacterController:GetHumanoid()
+
+	if not humanoid then
+		return
+	end
+
+	local moving = humanoid.MoveDirection.Magnitude > 0
+
+	if moving then
+		self:PlayAnimation("CrouchWalk")
+	else
+		self:PlayAnimation("CrouchIdle")
+	end
 end
 
 ----------------------------------------

@@ -33,6 +33,10 @@ function InputController:Start()
 			InputState.Sprint = true
 			print("SPRINT")
 		end
+
+		if input.KeyCode == Enum.KeyCode.LeftControl then
+			InputState.Crouch = not InputState.Crouch
+		end
 	end)
 
 	UserInputService.InputEnded:Connect(function(input)

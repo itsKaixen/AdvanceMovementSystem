@@ -9,4 +9,7 @@ return {
 	[MovementStates.Run] = {
 		WalkSpeed = 18,
 	},
+	[MovementStates.Crouch] = {
+		WalkSpeed = 4,
+	},
 }
